@@ -7,7 +7,7 @@ __pycache__/
 *.pyc
 .DS_Store
 prism.log
-reports/*.xml
-reports/*.html
 reports/*.json
 !reports/.gitkeep
+!reports/newman-lab04-local.xml
+!reports/newman-lab04-local.html
