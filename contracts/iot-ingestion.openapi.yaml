@@ -31,7 +31,6 @@ security:
   - bearerAuth: []
 
 paths:
-
   /health:
     get:
       operationId: getHealth
@@ -41,12 +40,12 @@ paths:
         - health
       security: []
       responses:
-        '200':
+        "200":
           description: Service đang hoạt động
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HealthStatus'
+                $ref: "#/components/schemas/HealthStatus"
 
   /readings:
     post:
@@ -60,30 +59,30 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReadingInput'
+              $ref: "#/components/schemas/ReadingInput"
       responses:
-        '201':
+        "201":
           description: Reading được chấp nhận
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReadingAccepted'
+                $ref: "#/components/schemas/ReadingAccepted"
               examples:
                 success:
                   value:
                     reading_id: rdg-1234
                     accepted: true
-                    received_at: '2026-05-13T08:30:00+07:00'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
+                    received_at: "2026-05-13T08:30:00+07:00"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
   /readings/latest:
     get:
@@ -109,12 +108,12 @@ paths:
             maximum: 100
             default: 5
       responses:
-        '200':
+        "200":
           description: Danh sách latest readings
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReadingList'
+                $ref: "#/components/schemas/ReadingList"
               examples:
                 success:
                   value:
@@ -124,19 +123,19 @@ paths:
                         metric: temperature
                         value: 31.5
                         unit: celsius
-                        timestamp: '2026-05-13T08:30:00+07:00'
+                        timestamp: "2026-05-13T08:30:00+07:00"
                       - reading_id: rdg-1235
                         device_id: ESP32-LAB-A01
                         metric: humidity
                         value: 55.2
                         unit: percent
-                        timestamp: '2026-05-13T08:31:00+07:00'
+                        timestamp: "2026-05-13T08:31:00+07:00"
                     total: 2
                     limit: 2
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
 components:
   securitySchemes:
@@ -191,7 +190,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          example: '2026-05-13T08:30:00+07:00'
+          example: "2026-05-13T08:30:00+07:00"
 
     ReadingAccepted:
       type: object
@@ -209,7 +208,7 @@ components:
         received_at:
           type: string
           format: date-time
-          example: '2026-05-13T08:30:00+07:00'
+          example: "2026-05-13T08:30:00+07:00"
 
     ReadingSummary:
       type: object
@@ -240,7 +239,7 @@ components:
         timestamp:
           type: string
           format: date-time
-          example: '2026-05-13T08:30:00+07:00'
+          example: "2026-05-13T08:30:00+07:00"
 
     ReadingList:
       type: object
@@ -251,7 +250,7 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/ReadingSummary'
+            $ref: "#/components/schemas/ReadingSummary"
         total:
           type: integer
           example: 2
@@ -288,54 +287,42 @@ components:
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/ProblemDetails'
+            $ref: "#/components/schemas/ProblemDetails"
           examples:
             invalidPayload:
               value:
-                type: 'https://example.com/probs/invalid-payload'
-                title: 'Invalid payload'
+                type: "https://example.com/probs/invalid-payload"
+                title: "Invalid payload"
                 status: 400
-                detail: 'Thiếu trường bắt buộc hoặc định dạng sai'
+                detail: "Thiếu trường bắt buộc hoặc định dạng sai"
     Unauthorized:
       description: Thiếu Bearer token
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/ProblemDetails'
+            $ref: "#/components/schemas/ProblemDetails"
           examples:
             missingAuth:
               value:
-                type: 'https://example.com/probs/unauthorized'
-                title: 'Unauthorized'
+                type: "https://example.com/probs/unauthorized"
+                title: "Unauthorized"
                 status: 401
-                detail: 'Thiếu token hoặc token không hợp lệ'
-    NotFound:
-      description: Resource không tồn tại
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/ProblemDetails'
-    Conflict:
-      description: Xung đột dữ liệu
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/ProblemDetails'
+                detail: "Thiếu token hoặc token không hợp lệ"
     UnprocessableEntity:
       description: Payload đúng JSON nhưng sai nghiệp vụ
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/ProblemDetails'
+            $ref: "#/components/schemas/ProblemDetails"
     TooManyRequests:
       description: Quá nhiều request
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/ProblemDetails'
+            $ref: "#/components/schemas/ProblemDetails"
     InternalServerError:
       description: Lỗi hệ thống phía IoT Ingestion
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/ProblemDetails'
+            $ref: "#/components/schemas/ProblemDetails"

@@ -1,0 +1,3 @@
+extends: spectral:oas
+
+# Optional: enable recommended rules and keep defaults. Add overrides below if needed.
