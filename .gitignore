@@ -8,6 +8,8 @@ __pycache__/
 .DS_Store
 prism.log
 reports/*.json
+reports/*.xml
+reports/*.html
 !reports/.gitkeep
 !reports/newman-lab04-local.xml
 !reports/newman-lab04-local.html
