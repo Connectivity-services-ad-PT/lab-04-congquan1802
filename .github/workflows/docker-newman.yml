@@ -34,8 +34,19 @@ jobs:
             --env-file .env.example \
             fit4110/iot-ingestion:lab04
 
-      - name: Wait for service health
-        run: npx wait-on http://localhost:8000/health --timeout 60000
+      - name: Wait for service health (container)
+        run: |
+          # Retry by curling the health endpoint from inside the container.
+          for i in $(seq 1 12); do
+            if docker exec fit4110-iot-lab04 sh -c "curl -fsS http://127.0.0.1:8000/health" >/dev/null 2>&1; then
+              echo "service healthy"; exit 0
+            fi
+            echo "waiting for service... ($i/12)"
+            sleep 5
+          done
+          echo "service did not become healthy; dumping container logs";
+          docker logs fit4110-iot-lab04 || true
+          exit 1
 
       - name: Run Newman against Docker container
         run: npm run test:local
