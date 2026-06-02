@@ -9,9 +9,7 @@ __pycache__/
 prism.log
 
 # Ignore generated report files, but keep the committed Newman report artifacts
-reports/*.json
-reports/*.xml
-reports/*.html
+reports/*
 !reports/.gitkeep
 !reports/newman-lab04-local.xml
 !reports/newman-lab04-local.html
