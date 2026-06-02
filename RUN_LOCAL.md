@@ -1,53 +1,85 @@
 # RUN_LOCAL.md – Hướng dẫn chạy Lab 04
 
-Tài liệu này giúp người khác clone repo sạch và chạy lại service bằng Docker.
+Tài liệu này giúp người khác clone repo sạch và chạy lại service trong Docker.
 
-1. Clone repo và vào thư mục dự án
+1. Clone repo
 
 ```bash
 git clone <repo-url>
-cd lab-04-congquan1802
+cd FIT4110_lab04_docker_packaging
 ```
 
-2. Cài dependencies cho Newman và các công cụ kiểm thử
+## 2. Cài dependencies cho Newman/Prism/Spectral
 
 ```bash
 npm install
 ```
 
-3. Build Docker image
+## 3. Build Docker image
 
 ```bash
 docker build -t fit4110/iot-ingestion:lab04 .
 ```
 
-4. Chạy container với `.env.example`
+## 4. Run container
 
 ```bash
-docker run -d --rm --name fit4110-iot-lab04 -p 8000:8000 --env-file .env.example fit4110/iot-ingestion:lab04
+
+docker run --rm \
+ --name fit4110-iot-lab04 \
+ -p 8000:8000 \
+ --env-file .env.example \
+ fit4110/iot-ingestion:lab04
 ```
 
-Kiểm tra health endpoint:
+Mở terminal khác, kiểm tra:
 
 ```bash
 curl http://localhost:8000/health
 ```
 
-5. Chạy Newman test và tạo báo cáo
+Kết quả mong đợi:
+
+```json
+{
+   "status": "ok",
+   "service": "iot-ingestion",
+   "version": "0.4.0"
+}
+```
+
+---
+
+## 5. Chạy Newman test trên container
 
 ```bash
 npm run test:local
 ```
 
-Báo cáo sẽ xuất ra:
+Report sinh tại:
 
 ```text
 reports/newman-lab04-local.xml
 reports/newman-lab04-local.html
 ```
 
-Nếu cần dừng container:
+---
+
+## 6. Dừng container
+
+Nếu không dùng `--rm` hoặc container còn chạy:
 
 ```bash
 docker stop fit4110-iot-lab04
+```
+
+---
+
+## 7. Lệnh nhanh
+
+```bash
+make build
+make run
+make test-docker
+make stop
 ```
