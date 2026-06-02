@@ -11,8 +11,11 @@ __pycache__/
 .DS_Store
 prism.log
 
-# Ignore generated report files, but keep the committed Newman report artifacts
-reports/*
+# Bỏ qua toàn bộ thư mục reports nhưng cho phép quét các file bên trong để check điều kiện phủ định
+reports/
+!reports/**/
+
+# Chỉ định rõ ràng các file được phép giữ lại
 !reports/.gitkeep
 !reports/newman-lab04-local.xml
 !reports/newman-lab04-local.html
