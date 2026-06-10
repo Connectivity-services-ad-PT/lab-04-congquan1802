@@ -1,0 +1,6 @@
+﻿
+REPOSITORY                TAG               IMAGE ID       SIZE
+fit4110/iot-ingestion     lab04             1d892d400c25   268MB
+fit4110/iot-ingestion     v0.1.0-team-iot   1d892d400c25   268MB
+
+
