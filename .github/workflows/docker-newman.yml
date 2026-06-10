@@ -36,9 +36,9 @@ jobs:
 
       - name: Wait for service health (container)
         run: |
-          # Retry by curling the health endpoint from inside the container.
+          # Retry by calling /health from the runner (curl is available on ubuntu-latest).
           for i in $(seq 1 12); do
-            if docker exec fit4110-iot-lab04 sh -c "curl -fsS http://127.0.0.1:8000/health" >/dev/null 2>&1; then
+            if curl -fsS http://localhost:8000/health >/dev/null 2>&1; then
               echo "service healthy"; exit 0
             fi
             echo "waiting for service... ($i/12)"
